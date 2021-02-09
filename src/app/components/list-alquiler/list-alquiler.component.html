@@ -1,0 +1,51 @@
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/img/antoine-barres.jpg')">
+        <div class="filter"></div>
+        <div class="content-center">
+            <div class="container">
+                <div class="title-brand">
+                    <h3 class="presentation-title">Listado de Alquileres</h3> 
+                </div>
+                <h2 class="presentation-subtitle-form text-center" >Revisa los alquileres registrados en la plataforma</h2>
+                <hr>
+            </div>
+            <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
+        </div>
+    </div>
+    <div class="container mt-5 mb-3">
+    	<h1>Reporte de Alquileres</h1>
+    	<a class="btn btn-primary my-2 mx-1" [routerLink]="['/create-alquiler']">Crear Alquiler</a>
+    	<a class="btn btn-primary my-2 mx-1" (click)="getVentaDia()">Venta día</a>
+    	<a class="btn btn-primary my-2 mx-1" (click)="resetForm()">Todas las ventas</a>
+    	<div class="row">
+    		<div class="col-md-12">
+    			<table class="table table-striped table-responsive-sm">
+				  <thead>
+				    <tr>
+				      <th scope="col">Código compra</th>
+				      <th scope="col">Juego</th>
+				      <th scope="col">Cliente</th>
+				      <th scope="col">Correo cliente</th>
+				      <th scope="col">Tecnologia</th>
+				      <th scope="col">Fecha Inicio</th>
+				      <th scope="col">Fecha Fin</th>
+				      <th scope="col">Precio Alquiler</th>
+				    </tr>
+				  </thead>
+				  <tbody *ngFor="let alquiler of alquileres">
+				    <tr>
+				      <td>{{alquiler.ideAlquiler}}</td>
+				      <td>{{alquiler.juego.titulo}}</td>
+				      <td>{{alquiler.cliente.nombre}}</td>
+				      <td>{{alquiler.cliente.correo}}</td>
+				      <td>{{alquiler.tecnologiaJuego.tecnologia.nombre}}</td>
+				      <td>{{alquiler.fechaInicio}}</td>
+				      <td>{{alquiler.fechaFin}}</td>
+				      <td>{{alquiler.precioAlquiler}}</td>
+				    </tr>
+				  </tbody>
+				</table>
+    		</div>
+    	</div>
+    </div>
+</div>

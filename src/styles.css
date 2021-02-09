@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.container-form{
+	background: rgb(0,0,0,0.8);
+	border-radius: 10px;
+	padding: 20px;
+}
+
+form label{
+	color: #fff;
+}

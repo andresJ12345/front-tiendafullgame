@@ -1,0 +1,103 @@
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/img/antoine-barres.jpg')">
+        <div class="filter"></div>
+        <div class="content-center container-form">
+            <div class="container">
+                <div class="title-brand">
+                    <h3 class="presentation-title-form" *ngIf="!isEdit">Alquilar Juego</h3> 
+                    <h3 class="presentation-title-form" *ngIf="isEdit">Edita el alquiler</h3>  
+                </div>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="!isEdit">Registra la información del juego que desea alquilar</h2>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="isEdit">Modifica la información del alquiler</h2>
+                <hr>
+            </div>
+            <div class="alert alert-success col-md-12" *ngIf="status == 'success'">
+				<p>El alquiler ha sido registrado de manera exitosa.<p>
+				<p>El código de compra es: <strong>{{alquiler.ideAlquiler}}</strong><p>
+			</div>
+
+			<div class="alert alert-danger col-md-12" *ngIf="status == 'error'">
+				<p>Ocurrio un error al guardar el registro del alquiler.</p>
+			</div>
+            <!-- Formulario de registro-->
+			<form class="col-md-12 mt-3" #alquilerForm="ngForm" (ngSubmit)="onSubmit(alquilerForm)">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="juego">Juego</label>
+							<select name="juego" class="form-control" #juego="ngModel" [(ngModel)]="alquiler.ideJuego" (change)="onChangeJuego($event.target.value)" required>
+								<option value="-1" *ngIf="alquiler.ideAlquiler == null">Seleccione...</option>	
+								<option *ngFor="let juego of juegos" value="{{juego.ideJuego}}">{{juego.titulo}}</option>
+							</select>
+							<small *ngIf="!juego.valid && juego.touched" class="invalid-feedback d-block">
+								El juego no es valido.
+							</small>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="cliente">Cliente</label>
+							<select name="cliente" class="form-control" #cliente="ngModel" [(ngModel)]="alquiler.ideCliente" required>
+								<option value="#" *ngIf="alquiler.ideAlquiler == null">Seleccione...</option>	
+								<option *ngFor="let cliente of clientes" value="{{cliente.correo}}">{{cliente.nombre}} | {{cliente.correo}}</option>
+							</select>
+							<small *ngIf="!cliente.valid && cliente.touched" class="invalid-feedback d-block">
+								El cliente no es valido.
+							</small>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="tecnologia">Plataforma</label>
+							<select name="tecnologiaJuego" class="form-control" #tecnologiaJuego="ngModel" [(ngModel)]="alquiler.ideTecnologiaJuego" required>
+								<option value="-1" *ngIf="alquiler.ideAlquiler == null">Seleccione...</option>	
+								<option *ngFor="let tecnologiaJuego of tecnologiaJuegos" value="{{tecnologiaJuego.ideTecnologiaJuego}}">{{tecnologiaJuego.tecnologia.nombre}}</option>
+							</select>
+							<small *ngIf="!tecnologiaJuego.valid && tecnologiaJuego.touched" class="invalid-feedback d-block">
+								La plataforma no es valida.
+							</small>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="fechaInicio">Fecha Inicio</label>
+							<input type="date" name="fechaInicio" class="form-control" #fechaInicio="ngModel" [(ngModel)]="alquiler.fechaInicio" required>
+							<small *ngIf="!fechaInicio.valid && fechaInicio.touched" class="invalid-feedback d-block">
+								La fecha inicio no es valida
+							</small>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="fechaFin">Fecha Fin</label>
+							<input type="date" name="fechaFin" class="form-control"#fechaFin="ngModel" [(ngModel)]="alquiler.fechaFin" required>
+							<small *ngIf="!fechaFin.valid && fechaFin.touched" class="invalid-feedback d-block">
+								La fecha fin no es valida
+							</small>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<div class="form-group">
+							<label for="precioAlquiler">Precio Alquiler</label>
+							<input type="number" name="precioAlquiler" class="form-control" #precioAlquiler="ngModel" [(ngModel)]="alquiler.precioAlquiler" required disabled>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Ejecutar</label>
+							<a class="btn btn-primary form-control" (click)="clickPrecioAlquiler()">Calcular</a>
+						</div>
+					</div>
+				</div>
+				<input type="submit" class="btn btn-success" *ngIf="!isEdit" value="Registrar alquiler" [disabled]="alquilerForm.invalid">
+				<input type="submit" class="btn btn-success" *ngIf="isEdit" value="Actualizar alquiler" [disabled]="alquilerForm.invalid">
+			</form>
+			<br>
+        </div>
+    </div>
+</div>

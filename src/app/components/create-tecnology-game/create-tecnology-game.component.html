@@ -1,0 +1,49 @@
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/img/antoine-barres.jpg')">
+        <div class="filter"></div>
+        <div class="content-center container-form">
+            <div class="container">
+                <div class="title-brand">
+                    <h3 class="presentation-title-form" *ngIf="!isEdit">Vincular Plataforma a Juego</h3> 
+                    <h3 class="presentation-title-form" *ngIf="isEdit">Editar vinculación plataforma</h3>  
+                </div>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="!isEdit">Indica en que plataforma estará disponible el juego</h2>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="isEdit">Edita la plataforma en la que plataforma estará disponible el juego</h2>
+                <hr>
+            </div>
+            <div class="alert alert-success col-md-12" *ngIf="status == 'success'">
+				<p>Se vinculo correctamente el juego con la plataforma asignada.<p>
+			</div>
+
+			<div class="alert alert-danger col-md-12" *ngIf="status == 'error'">
+				<p>Ocurrio un error al vincular la plataforma.</p>
+			</div>
+            <!-- Formulario de registro-->
+			<form class="col-md-12 mt-3" #tecnologiaForm="ngForm" (ngSubmit)="onSubmit(tecnologiaForm)">
+				<div class="form-group">
+					<label for="juego">Juego</label>
+					<select name="juego" class="form-control" #juego="ngModel" [(ngModel)]="tecnologiaJuego.ideJuego" required>
+								<option value="-1" *ngIf="juego.ideJuego == null">Seleccione...</option>
+								<option *ngFor="let juego of juegos" value="{{juego.ideJuego}}">{{juego.titulo}}</option>
+							</select>
+					<small *ngIf="!juego.valid && juego.touched" class="invalid-feedback d-block">
+						El Juego no es valido
+					</small>
+				</div>
+				<div class="form-group">
+					<label for="tecnologia">Tecnologia</label>
+					<select name="tecnologia" class="form-control" #tecnologia="ngModel" [(ngModel)]="tecnologiaJuego.ideTecnologia" required>
+								<option value="-1" *ngIf="tecnologia.ideTecnologia == null">Seleccione...</option>
+								<option *ngFor="let tecnologia of tecnologias" value="{{tecnologia.ideTecnologia}}">{{tecnologia.nombre}}</option>
+							</select>
+					<small *ngIf="!tecnologia.valid && tecnologia.touched" class="invalid-feedback d-block">
+						La técnologia no es valida
+					</small>
+				</div>
+				<input type="submit" class="btn btn-success" *ngIf="!isEdit" value="Vincular" [disabled]="tecnologiaForm.invalid">
+				<input type="submit" class="btn btn-success" *ngIf="isEdit" value="Actualizar vinculación" [disabled]="tecnologiaForm.invalid">
+			</form>
+			<br>
+        </div>
+    </div>
+</div>

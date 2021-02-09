@@ -1,0 +1,103 @@
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/img/antoine-barres.jpg')">
+        <div class="filter"></div>
+        <div class="content-center container-form">
+            <div class="container">
+                <div class="title-brand">
+                    <h3 class="presentation-title-form" *ngIf="!isEdit">Crear un nuevo juego</h3> 
+                    <h3 class="presentation-title-form" *ngIf="isEdit">Edita el juego</h3>  
+                </div>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="!isEdit">Registra la información del juego que deseas agregar a la tienda</h2>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="isEdit">Modifica la información del juego</h2>
+                <hr>
+            </div>
+            <div class="alert alert-success col-md-12" *ngIf="status == 'success'">
+				<p>El juego ha sido guardado de manera exitosa.<p>
+				<p *ngIf="!isEdit">Recuerda registrar las plataformas vinculadas a este juego a través del siguiente enlace: <a [routerLink]="['/create-tecnology-game', juego.ideJuego]">Registrar Plataformas</a></p>
+			</div>
+
+			<div class="alert alert-danger col-md-12" *ngIf="status == 'error'">
+				<p>Ocurrio un error al guardar el registro del juego.</p>
+			</div>
+            <!-- Formulario de registro-->
+			<form class="col-md-12 mt-3" #gameForm="ngForm" (ngSubmit)="onSubmit(gameForm)">
+				<div class="form-group">
+					<label for="titulo">Titulo</label>
+					<input type="text" name="titulo" class="form-control" #titulo="ngModel" [(ngModel)]="juego.titulo" required>
+					<small *ngIf="!titulo.valid && titulo.touched" class="invalid-feedback d-block">
+						El titulo no es valido
+					</small>
+				</div>
+				<div class="form-group">
+					<label for="descripcion">Descripción</label>
+					<input type="text" name="descripcion" class="form-control"#descripcion="ngModel" [(ngModel)]="juego.descripcion" required>
+					<small *ngIf="!descripcion.valid && descripcion.touched" class="invalid-feedback d-block">
+						El descripcion no es valido
+					</small>
+					
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="protagonista">Protagonista</label>
+							<select name="protagonista" class="form-control" #protagonista="ngModel" [(ngModel)]="juego.ideProtagonista" required>
+								<option value="-1" *ngIf="juego.ideJuego == null">Seleccione...</option>	
+								<option *ngFor="let protagonista of protagonistas" value="{{protagonista.ideProtagonista}}">{{protagonista.nombre}}</option>
+							</select>
+							<small *ngIf="!protagonista.valid && protagonista.touched" class="invalid-feedback d-block">
+								El protagonista no es valido.
+							</small>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="director">Director</label>
+							<select name="director" class="form-control" #director="ngModel" [(ngModel)]="juego.ideDirector" required>
+								<option value="-1" *ngIf="juego.ideJuego == null">Seleccione...</option>
+								<option *ngFor="let director of directores" value="{{director.ideDirector}}">{{director.nombre}}</option>
+							</select>
+							<small *ngIf="!director.valid && director.touched" class="invalid-feedback d-block">
+								El director no es valido.
+							</small>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="marca">Marca</label>
+							<select name="marca" class="form-control" #marca="ngModel" [(ngModel)]="juego.ideMarca" required>
+								<option value="-1" *ngIf="juego.ideJuego == null">Seleccione...</option>
+								<option *ngFor="let marca of marcas" value="{{marca.ideMarca}}">{{marca.nombre}}</option>
+							</select>
+							<small *ngIf="!marca.valid && marca.touched" class="invalid-feedback d-block">
+								La marca no es valida.
+							</small>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="annio">Año publicación</label>
+							<input type="number" name="annio" class="form-control" #annio="ngModel" [(ngModel)]="juego.annio" required>
+							<small *ngIf="!annio.valid && annio.touched" class="invalid-feedback d-block">
+								El año no es valido.
+							</small>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="precioAlquiler">Precio alquiler</label>
+							<input type="number" name="precioAlquiler" class="form-control" min="1" #precioAlquiler="ngModel" [(ngModel)]="juego.precioAlquiler" required>
+							<small *ngIf="!precioAlquiler.valid && precioAlquiler.touched" class="invalid-feedback d-block">
+								El precio alquiler no es valido.
+							</small>
+						</div>
+					</div>
+				</div>
+				<input type="submit" class="btn btn-success" *ngIf="!isEdit" value="Crear Juego" [disabled]="gameForm.invalid">
+				<input type="submit" class="btn btn-success" *ngIf="isEdit" value="Actualizar Juego" [disabled]="gameForm.invalid">
+			</form>
+			<br>
+        </div>
+    </div>
+</div>

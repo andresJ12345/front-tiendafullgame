@@ -1,0 +1,103 @@
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/img/antoine-barres.jpg')">
+        <div class="filter"></div>
+        <div class="content-center">
+            <div class="container">
+                <div class="title-brand">
+                    <h3 class="presentation-title">Listado de Juegos</h3> 
+                </div>
+                <h2 class="presentation-subtitle-form text-center" >Revisa todo el listado de juegos que tenemos disponible para ti!</h2>
+                <hr>
+            </div>
+            <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
+        </div>
+    </div>
+    <div class="container mt-5 mb-3">
+    	<h1>Reporte de Juegos</h1>
+    	<a class="btn btn-primary my-2" [routerLink]="['/create-game']">Crear Juego</a>
+    	<a class="btn btn-primary mx-2 my-2" [routerLink]="['/create-tecnology-game']">Vincular plataforma</a>
+    	<a class="btn btn-primary mx-2 my-2 float-right" [routerLink]="['/list-tecnology-game']">Listado Juegos por Plataforma</a>
+    	<h4 class="font-weight-bold mb-0 mt-3">Filtros</h4>
+    	<hr>
+    	<div class="container">
+    		<div class="row">
+		    	<div class="col-md-3">
+    				<form>
+		    			<div class="form-group">
+						    <label for="protagonista" class="text-dark">Protagonista</label>
+						    <select class="form-control" name="protagonista" #protagonista="ngModel" [(ngModel)]="protagonista.ideProtagonista">
+						      <option *ngFor="let protag of protagonistas" value="{{protag.ideProtagonista}}">{{protag.nombre}}</option>
+						    </select>
+						</div>
+						<div class="form-group">
+							<a class="btn btn-success" (click)="clickSearchProtagonista(protagonista.ideProtagonista)">Buscar</a>
+						</div>
+    				</form>
+    			</div>
+    			<div class="col-md-3">
+    				<form>
+		    			<div class="form-group">
+						    <label for="director" class="text-dark">Director</label>
+						    <select class="form-control" name="director" #director="ngModel" [(ngModel)]="director.ideDirector">
+						      <option *ngFor="let direct of directores" value="{{direct.ideDirector}}">{{direct.nombre}}</option>
+						    </select>
+						</div>
+						<div class="form-group">
+							<a class="btn btn-success" (click)="clickSearchDirector(director.ideDirector)">Buscar</a>
+						</div>
+    				</form>
+    			</div>
+    			<div class="col-md-3">
+    				<form>
+		    			<div class="form-group">
+						    <label for="Marca" class="text-dark">Marca</label>
+						    <select class="form-control" name="Marca" #marca="ngModel" [(ngModel)]="marca.idMarca">
+						      <option *ngFor="let marc of marcas" value="{{marc.ideMarca}}">{{marc.nombre}}</option>
+						    </select>
+						</div>
+						<div class="form-group">
+							<a class="btn btn-success" (click)="clickSearchMarca(marca.idMarca)">Buscar</a>
+							
+						</div>
+    				</form>
+    			</div>
+    			<div class="col-md-3">
+    				<a class="btn btn-warning my-1" (click)="getJuegoMaxAlquilado()">Juego más alquilado</a>
+    				<a class="btn btn-outline-danger my-1" (click)="clickClean()">Limpiar filtros</a>
+    			</div>
+		    </div>
+    	</div>    	
+    	<div class="row">
+    		<div class="col-md-12">
+    			<table class="table table-striped table-responsive-sm">
+				  <thead>
+				    <tr>
+				      <th scope="col">Cod</th>
+				      <th scope="col">Titulo</th>
+				      <th scope="col">Descripción</th>
+				      <th scope="col">Año</th>
+				      <th scope="col">Protagonista</th>
+				      <th scope="col">Director</th>
+				      <th scope="col">Marca</th>
+				      <th scope="col">Precio Alquiler</th>
+				      <th scope="col">Acción</th>
+				    </tr>
+				  </thead>
+				  <tbody *ngFor="let juego of juegos">
+				    <tr>
+				      <th scope="row">{{juego.ideJuego}}</th>
+				      <td>{{juego.titulo}}</td>
+				      <td>{{juego.descripcion}}</td>
+				      <td>{{juego.annio}}</td>
+				      <td>{{juego.protagonista.nombre}}</td>
+				      <td>{{juego.director.nombre}}</td>
+				      <td>{{juego.marca.nombre}}</td>
+				      <td>{{juego.precioAlquiler}}</td>
+				      <td><a class="btn btn-primary mx-1 my-1 btn-sm" [routerLink]="['/edit-game', juego.ideJuego]">Editar</a></td>
+				    </tr>
+				  </tbody>
+				</table>
+    		</div>
+    	</div>
+    </div>
+</div>

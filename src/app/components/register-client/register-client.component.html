@@ -1,0 +1,79 @@
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/img/antoine-barres.jpg')">
+        <div class="filter"></div>
+        <div class="content-center container-form">
+            <div class="container">
+                <div class="title-brand">
+                    <h3 class="presentation-title-form" *ngIf="!isEdit">Crear un nuevo cliente</h3> 
+                    <h3 class="presentation-title-form" *ngIf="isEdit">Editar cliente</h3>  
+                </div>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="!isEdit">Registra la información del cliente</h2>
+                <h2 class="presentation-subtitle-form text-center" *ngIf="isEdit">Modifica la información del cliente</h2>
+                <hr>
+            </div>
+            <div class="alert alert-success col-md-12" *ngIf="status == 'success'">
+				<p>El cliente ha sido registrado de manera exitosa.<p>
+			</div>
+
+			<div class="alert alert-danger col-md-12" *ngIf="status == 'error'">
+				<p>Ocurrio un error al guardar el registro del cliente.</p>
+			</div>
+            <!-- Formulario de registro-->
+			<form class="col-md-12 mt-3" #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
+				
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="correo">Correo</label>
+							<input type="email" name="correo" class="form-control" #correo="ngModel" [(ngModel)]="cliente.correo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+							<small *ngIf="!correo.valid && correo.touched" class="invalid-feedback d-block">
+								El correo no es valido
+							</small>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="nombre">Nombre</label>
+							<input type="text" name="nombre" class="form-control"#nombre="ngModel" [(ngModel)]="cliente.nombre" pattern="[a-zA-Z ]+" required>
+							<small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+								El nombre no es valido
+							</small>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="direccion">Dirección</label>
+							<input type="text" name="direccion" class="form-control"#direccion="ngModel" [(ngModel)]="cliente.direccion" required>
+							<small *ngIf="!direccion.valid && direccion.touched" class="invalid-feedback d-block">
+								La direccion no es valida
+							</small>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="celular">Celular</label>
+							<input type="number" name="celular" class="form-control" #celular="ngModel" [(ngModel)]="cliente.celular" required>
+							<small *ngIf="!celular.valid && celular.touched" class="invalid-feedback d-block">
+								El celular no es valido
+							</small>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="edad">Edad</label>
+							<input type="number" name="edad" class="form-control"#edad="ngModel" [(ngModel)]="cliente.edad" required>
+							<small *ngIf="!edad.valid && edad.touched" class="invalid-feedback d-block">
+								La edad no es valida
+							</small>
+						</div>
+					</div>
+				</div>
+				<input type="submit" class="btn btn-success" *ngIf="!isEdit" value="Registrar cliente" [disabled]="clientForm.invalid">
+				<input type="submit" class="btn btn-success" *ngIf="isEdit" value="Actualizar cliente" [disabled]="clientForm.invalid">
+			</form>
+			<br>
+        </div>
+    </div>
+</div>
